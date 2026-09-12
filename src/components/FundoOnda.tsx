@@ -24,12 +24,18 @@ function FundoOnda({ cor, variante }: Props) {
         ]
       : [
           {
-            posicao: "-top-[28%] -right-[18%] w-[42vw] h-[86vh]",
+            /* No celular w/h em vw/vh separados vira uma fatia alta e estreita, com
+            pouco de curva sobrando pra parecer um borrão suave — fica um pedaço de
+            cor quase reto no meio da tela. Em vmax os dois lados crescem juntos e
+            o desktop (lg:) segue com os valores originais, intocado. */
+            posicao:
+              "-top-[38%] -right-[38%] w-[70vmax] h-[70vmax] lg:-top-[28%] lg:-right-[18%] lg:w-[42vw] lg:h-[86vh]",
             raio: "36% 64% 55% 45% / 62% 38% 62% 38%",
             opacidade: "opacity-[0.10] dark:opacity-[0.28]",
           },
           {
-            posicao: "-bottom-[20%] -left-[14%] w-[40vw] h-[64vh]",
+            posicao:
+              "-bottom-[34%] -left-[30%] w-[62vmax] h-[62vmax] lg:-bottom-[20%] lg:-left-[14%] lg:w-[40vw] lg:h-[64vh]",
             raio: "65% 35% 44% 56% / 38% 61% 39% 62%",
             opacidade: "opacity-[0.08] dark:opacity-[0.20]",
           },

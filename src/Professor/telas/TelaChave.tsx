@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   CLASSE_BOTAO,
   CLASSE_INPUT,
@@ -24,6 +24,15 @@ function TelaChave({
   aoVoltar,
 }: Props) {
   const [visivel, setVisivel] = useState(false);
+  const inputChaveRef = useRef<HTMLInputElement>(null);
+
+  /* Focar direto no autoFocus, com a tela ainda em animate-fade-in, faz o
+  teclado do iOS travar mostrando só a barra de cima sem as teclas. Espera a
+  animação (300ms) acabar antes de focar. */
+  useEffect(() => {
+    const id = setTimeout(() => inputChaveRef.current?.focus(), 300);
+    return () => clearTimeout(id);
+  }, []);
 
   return (
     <div className="animate-fade-in">
@@ -54,6 +63,7 @@ function TelaChave({
 
         <div className="relative">
           <input
+            ref={inputChaveRef}
             type={visivel ? "text" : "password"}
             value={chave}
             onChange={(e) => aoMudarChave(e.target.value)}
@@ -61,7 +71,6 @@ function TelaChave({
             placeholder="••••••••"
             name="chave"
             autoComplete="current-password"
-            autoFocus
             required
           />
           <button
